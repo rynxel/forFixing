@@ -2,15 +2,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-
 using TaskManager.Models;
 using TaskManager.Data;
+
 namespace TaskManager.API
 {
     [Route("tasks")]
     [ApiController]
-    public class TasksController : ControllerBase
-    {
+    public class TasksController : ControllerBase{
         private readonly ApplicationDbContext _context;
 
         public TasksController(ApplicationDbContext context)
@@ -19,7 +18,7 @@ namespace TaskManager.API
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetTasks()
         {
             
             var tasks = await _context.Tasks.ToListAsync();
@@ -27,16 +26,15 @@ namespace TaskManager.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TaskItem task)
+        public async Task<IActionResult> CreateTask([FromBody] TaskItem task)
         {
-            
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = task.Id }, task);
+            return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
         }
 
         [HttpPut("{id}")] 
-        public async Task<IActionResult> Update(int id, [FromBody] TaskItem updated)
+        public async Task<IActionResult> UpdateTask(int id, [FromBody] TaskItem updated)
         {
             var task = await _context.Tasks.FindAsync(id);
             if (task == null) return NotFound();
@@ -49,7 +47,7 @@ namespace TaskManager.API
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteTask(int id)
         {
             var task = await _context.Tasks.FindAsync(id);
             if (task == null) return NotFound();
@@ -60,4 +58,5 @@ namespace TaskManager.API
             return NoContent();
         }
     }
+
 }

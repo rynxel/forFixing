@@ -7,8 +7,8 @@ namespace TaskManager.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {}
+        public DbSet<TaskItem> Tasks { get; set; } 
 
-        public DbSet<User> Users => Set<User>();
-        public DbSet<TaskItem> Tasks => Set<TaskItem>();
+        public DbSet<User> Users { get; set; } 
     }
 }
