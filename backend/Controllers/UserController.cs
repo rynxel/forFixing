@@ -8,7 +8,7 @@ using TaskManager.Data;
 namespace TaskManager.API
 {
     [ApiController]
-    [Route("auth")]
+    [Route("api/user")]
     public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

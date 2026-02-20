@@ -1,9 +1,11 @@
 Updated .env
+
 Backend
 Installed Required Backend Packages
 Connect Postgres Database
 allow https
 connect frontend to backend
+add logs and roles model
 
 Frontend
 Re/Install Dependency

@@ -7,7 +7,7 @@ using TaskManager.Data;
 
 namespace TaskManager.API
 {
-    [Route("tasks")]
+    [Route("api/tasks")]
     [ApiController]
     public class TasksController(ApplicationDbContext context) : ControllerBase{
         [HttpGet]
