@@ -9,5 +9,8 @@ namespace TaskManager.Models
         public string PasswordHash { get; set; } = string.Empty;
         public ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
         public bool IsActive { get; set; } = true;
+
+        public int RoleId { get; set; }
+        public Role Role { get; set; } = null!;
     }
 }
