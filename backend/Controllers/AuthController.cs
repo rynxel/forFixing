@@ -40,15 +40,7 @@ public class AuthController : ControllerBase
     [HttpPost("logout")]
     public async Task<IActionResult> Logout([FromBody] RefreshTokenRequestDto dto)
     {
-        var token = await _authService._context.UserTokens
-            .FirstOrDefaultAsync(t => t.Token == dto.RefreshToken);
-
-        if (token != null)
-        {
-            token.IsRevoked = true;
-            await _authService._context.SaveChangesAsync();
-        }
-
+        await _authService.LogoutAsync(dto.RefreshToken);
         return Ok(new { Message = "Logged out successfully" });
     }
 }

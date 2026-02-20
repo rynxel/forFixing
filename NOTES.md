@@ -6,6 +6,8 @@ Connect Postgres Database
 allow https
 connect frontend to backend
 add logs and roles model
+Created an Auth Handler For user logins
+
 
 Frontend
 Re/Install Dependency
