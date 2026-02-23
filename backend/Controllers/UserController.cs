@@ -8,38 +8,25 @@ using TaskManager.Data;
 namespace TaskManager.API
 {
     [ApiController]
-    [Route("api/user")]
-    public class UsersController : ControllerBase
+    [Route("api/users")]
+    public class UsersController(ApplicationDbContext context) : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public UsersController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _context.Users.ToListAsync();
+        public async Task<IActionResult> GetUsers(){
+            var users = await context.Users.ToListAsync();
             return Ok(users);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+        public async Task<IActionResult> CreateUser(User user){
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
         }
-
-        // Example of adding a new route
-        [HttpGet("active")]
-        public async Task<IActionResult> GetActiveUsers()
-        {
-            var activeUsers = await _context.Users
-                .Where(u => u.IsActive)
-                .ToListAsync();
+        [HttpGet("active")] //api/users/active
+        public async Task<IActionResult> GetActiveUsers(){
+            var activeUsers = await context.Users.Where(u => u.IsActive).ToListAsync();
             return Ok(activeUsers);
         }
     }
